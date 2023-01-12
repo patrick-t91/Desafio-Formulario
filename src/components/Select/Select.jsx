@@ -1,13 +1,19 @@
+import { useState } from "react";
 import Option from "../Option/Option";
-import './Select.css'
+import "./Select.css";
 
-const shortid = require("shortid");
+const Select = ({ name, options, handleChange }) => {
+  const [country, setCountry] = useState(options[0].value);
 
-const Select = ({ name, options }) => {
+  const handleValue = ({ target }) => {
+    setCountry(target.value);
+    handleChange(target.name, target.value);
+  };
+
   return (
-    <select name={name}>
-      {options.map((item) => (
-        <Option key={shortid.generate()} {...item} />
+    <select name={name} value={country} onChange={handleValue}>
+      {options.map((item, index) => (
+        <Option key={index} {...item} />
       ))}
     </select>
   );
